@@ -20,7 +20,6 @@ public class Pelota extends Drawable {
     int ancho, alto;
 
     public Pelota(int ancho, int alto, int borde, Paint pincel) {
-        this.radio = radio;
         ejeX = ancho / 2;
         ejeY = alto / 2;
         ejeZ = radio; //posicion cada momento

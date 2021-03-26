@@ -20,9 +20,9 @@ public class MiPanel extends View implements SensorEventListener {
     Paint pincel = new Paint();
     int alto, ancho;
     int borde = 30; // esto se usara para definir el borde de la pantalla
-    float ejeX = radio + borde, ejeY = radio + borde, ejeZ = radio; //posicion cada momento
 
     Pelota pelota;
+    PelotaGrande pgrande;
 
     public MiPanel(Context interfaz) {
         super(interfaz);
@@ -36,6 +36,7 @@ public class MiPanel extends View implements SensorEventListener {
         root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.black));
 
         pelota = new Pelota(ancho, alto, borde, pincel);
+        pgrande = new PelotaGrande(ancho, alto, borde, pincel);
     }
 
     @Override
@@ -52,13 +53,7 @@ public class MiPanel extends View implements SensorEventListener {
 
     @Override
     protected void onDraw(Canvas lienzo) {
-        pincel.setColor(Color.WHITE);
-        lienzo.drawCircle(ancho / 2, alto / 2, radio * 4, pincel);
-
-
-        pincel.setColor(Color.BLACK);
-        lienzo.drawCircle(ancho / 2, alto / 2, (radio * 4) - 3, pincel);
-
+        pgrande.draw(lienzo);
         pelota.draw(lienzo);
 
     }
