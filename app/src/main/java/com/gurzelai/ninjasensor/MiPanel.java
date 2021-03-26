@@ -2,6 +2,7 @@ package com.gurzelai.ninjasensor;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,6 +18,8 @@ import androidx.core.content.ContextCompat;
 
 
 public class MiPanel extends View implements SensorEventListener {
+
+    final int VOLUMEN = 0;
 
     Paint pincel = new Paint();
     ToneGenerator tone;
@@ -38,7 +41,7 @@ public class MiPanel extends View implements SensorEventListener {
         alto = pantalla.getHeight();
         View root = this.getRootView();
         root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.black));
-        tone = new ToneGenerator(AudioManager.STREAM_ALARM, 50);
+        tone = new ToneGenerator(AudioManager.STREAM_ALARM, VOLUMEN);
 
         pelota = new Pelota(ancho, alto, borde, pincel);
         pgrande = new PelotaGrande(ancho, alto, borde, pincel);
@@ -46,7 +49,6 @@ public class MiPanel extends View implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent cambio) {
-
         pelota.cambioSensor(cambio);
         invalidate();
     }
@@ -61,11 +63,17 @@ public class MiPanel extends View implements SensorEventListener {
         pgrande.draw(lienzo);
         pelota.draw(lienzo);
         choqueEntrePelotas();
+        dibujarProgressBar(lienzo);
+    }
+
+    private void dibujarProgressBar(Canvas lienzo) {
+        pincel.setColor(Color.BLUE);
+        lienzo.drawRect(40, alto - 75,ancho -40, alto - 75 - 75, pincel);
     }
 
     private void choqueEntrePelotas() {
 
-        if(contadorCiclos>10) {
+        if (contadorCiclos > 10) {
             if (pelota.getEjeX() + pelota.getRadio() >= pgrande.getEjeX() + pgrande.getRadioInt()) {
                 tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                 contadorCiclos = 0;
