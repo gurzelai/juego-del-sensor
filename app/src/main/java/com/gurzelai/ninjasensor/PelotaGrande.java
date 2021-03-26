@@ -10,6 +10,8 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.Random;
+
 public class PelotaGrande extends Drawable {
 
     Paint pincel;
@@ -17,6 +19,8 @@ public class PelotaGrande extends Drawable {
     float ejeX, ejeY;
     int borde;
     int ancho, alto;
+    int diferenciaX = 1, diferenciaY = 1;
+    Random random = new Random();
 
     public PelotaGrande(int ancho, int alto, int borde, Paint pincel) {
         ejeX = ancho / 2;
@@ -25,17 +29,36 @@ public class PelotaGrande extends Drawable {
         this.ancho = ancho;
         this.alto = alto;
         this.pincel = pincel;
-        radioInt = 150;
-        radioExt = 155;
+        radioInt = 220;
+        radioExt = radioInt + 3;
     }
 
 
     @Override
     public void draw(@NonNull Canvas lienzo) {
+        paredes();
         pincel.setColor(Color.WHITE);
-        lienzo.drawCircle(ejeX, ejeY, radioExt, pincel);
+        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioExt, pincel);
         pincel.setColor(Color.BLACK);
-        lienzo.drawCircle(ejeX, ejeY, radioInt, pincel);
+        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioInt, pincel);
+
+    }
+
+    private void paredes() {
+        if (ejeX < (radioExt + borde)) {
+            ejeX = (radioExt + borde);
+            diferenciaX = -1*diferenciaX;
+        } else if (ejeX > (ancho - radioExt - borde)) {
+            ejeX = ancho - radioExt - borde;
+            diferenciaX = -1*diferenciaX;
+        }
+        if (ejeY < (radioExt + borde)) {
+            ejeY = (radioExt + borde);
+            diferenciaY = -1*diferenciaY;
+        } else if (ejeY > (alto - radioExt - borde)) { //poner -150 si ponemos el navigation bar
+            ejeY = (alto - radioExt - borde);  //poner -150 si ponemos el navigation bar
+            diferenciaY = -1*diferenciaY;
+        }
     }
 
     @Override

@@ -55,6 +55,5 @@ public class MiPanel extends View implements SensorEventListener {
     protected void onDraw(Canvas lienzo) {
         pgrande.draw(lienzo);
         pelota.draw(lienzo);
-
     }
 }
