@@ -19,8 +19,9 @@ public class PelotaGrande extends Drawable {
     float ejeX, ejeY;
     int borde;
     int ancho, alto;
+
     int diferenciaX = 1, diferenciaY = 1;
-    Random random = new Random();
+    int diferenciaRadio = 1;
 
     public PelotaGrande(int ancho, int alto, int borde, Paint pincel) {
         ejeX = ancho / 2;
@@ -29,19 +30,26 @@ public class PelotaGrande extends Drawable {
         this.ancho = ancho;
         this.alto = alto;
         this.pincel = pincel;
-        radioInt = 220;
-        radioExt = radioInt + 3;
+        radioExt = 220;
+        radioInt = radioExt - 3;
     }
 
 
     @Override
     public void draw(@NonNull Canvas lienzo) {
         paredes();
+        controlRadio();
         pincel.setColor(Color.WHITE);
-        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioExt, pincel);
+        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioExt = radioExt + diferenciaRadio, pincel);
         pincel.setColor(Color.BLACK);
-        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioInt, pincel);
+        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioInt = radioInt + diferenciaRadio, pincel);
 
+    }
+
+    private void controlRadio() {
+        if(radioExt == 260 || radioExt == 180){
+            diferenciaRadio = diferenciaRadio * -1;
+        }
     }
 
     private void paredes() {
