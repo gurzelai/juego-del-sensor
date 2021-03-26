@@ -51,6 +51,18 @@ public class Pelota extends Drawable {
         return 1;
     }
 
+    public int getRadio() {
+        return radio;
+    }
+
+    public float getEjeX() {
+        return ejeX;
+    }
+
+    public float getEjeY() {
+        return ejeY;
+    }
+
     public void cambioSensor(SensorEvent cambio) {
         ejeX -= cambio.values[0];
         if (ejeX < (radio + borde)) {

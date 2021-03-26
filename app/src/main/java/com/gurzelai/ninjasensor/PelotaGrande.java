@@ -31,8 +31,24 @@ public class PelotaGrande extends Drawable {
         this.alto = alto;
         this.pincel = pincel;
         radioExt = 220;
-        radioInt = radioExt - 3;
+        radioInt = radioExt - 6;
     }
+
+    public int getRadioInt() {
+        return radioInt;
+    }
+
+
+    public float getEjeX() {
+        return ejeX;
+    }
+
+
+
+    public float getEjeY() {
+        return ejeY;
+    }
+
 
 
     @Override
@@ -40,14 +56,14 @@ public class PelotaGrande extends Drawable {
         paredes();
         controlRadio();
         pincel.setColor(Color.WHITE);
-        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioExt = radioExt + diferenciaRadio, pincel);
+        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY + diferenciaY, radioExt = radioExt + diferenciaRadio, pincel);
         pincel.setColor(Color.BLACK);
-        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY+diferenciaY, radioInt = radioInt + diferenciaRadio, pincel);
+        lienzo.drawCircle(ejeX = ejeX + diferenciaX, ejeY = ejeY + diferenciaY, radioInt = radioInt + diferenciaRadio, pincel);
 
     }
 
     private void controlRadio() {
-        if(radioExt == 260 || radioExt == 180){
+        if (radioExt == 260 || radioExt == 180) {
             diferenciaRadio = diferenciaRadio * -1;
         }
     }
@@ -55,17 +71,17 @@ public class PelotaGrande extends Drawable {
     private void paredes() {
         if (ejeX < (radioExt + borde)) {
             ejeX = (radioExt + borde);
-            diferenciaX = -1*diferenciaX;
+            diferenciaX = -1 * diferenciaX;
         } else if (ejeX > (ancho - radioExt - borde)) {
             ejeX = ancho - radioExt - borde;
-            diferenciaX = -1*diferenciaX;
+            diferenciaX = -1 * diferenciaX;
         }
         if (ejeY < (radioExt + borde)) {
             ejeY = (radioExt + borde);
-            diferenciaY = -1*diferenciaY;
+            diferenciaY = -1 * diferenciaY;
         } else if (ejeY > (alto - radioExt - borde)) { //poner -150 si ponemos el navigation bar
             ejeY = (alto - radioExt - borde);  //poner -150 si ponemos el navigation bar
-            diferenciaY = -1*diferenciaY;
+            diferenciaY = -1 * diferenciaY;
         }
     }
 

@@ -2,12 +2,13 @@ package com.gurzelai.ninjasensor;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,13 +17,16 @@ import androidx.core.content.ContextCompat;
 
 
 public class MiPanel extends View implements SensorEventListener {
-    int radio = 60; //circuferencia de la pelota
+
     Paint pincel = new Paint();
-    int alto, ancho;
-    int borde = 30; // esto se usara para definir el borde de la pantalla
+    ToneGenerator tone;
 
     Pelota pelota;
     PelotaGrande pgrande;
+
+    int alto, ancho;
+    int borde = 30; // esto se usara para definir el borde de la pantalla
+    int contadorCiclos = 0;
 
     public MiPanel(Context interfaz) {
         super(interfaz);
@@ -34,6 +38,7 @@ public class MiPanel extends View implements SensorEventListener {
         alto = pantalla.getHeight();
         View root = this.getRootView();
         root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.black));
+        tone = new ToneGenerator(AudioManager.STREAM_ALARM, 50);
 
         pelota = new Pelota(ancho, alto, borde, pincel);
         pgrande = new PelotaGrande(ancho, alto, borde, pincel);
@@ -55,5 +60,30 @@ public class MiPanel extends View implements SensorEventListener {
     protected void onDraw(Canvas lienzo) {
         pgrande.draw(lienzo);
         pelota.draw(lienzo);
+        choqueEntrePelotas();
+    }
+
+    private void choqueEntrePelotas() {
+
+        if(contadorCiclos>10) {
+            if (pelota.getEjeX() + pelota.getRadio() >= pgrande.getEjeX() + pgrande.getRadioInt()) {
+                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                contadorCiclos = 0;
+            }
+            if (pelota.getEjeX() - pelota.getRadio() <= pgrande.getEjeX() - pgrande.getRadioInt()) {
+                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                contadorCiclos = 0;
+            }
+            if (pelota.getEjeY() + pelota.getRadio() >= pgrande.getEjeY() + pgrande.getRadioInt()) {
+                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                contadorCiclos = 0;
+            }
+            if (pelota.getEjeY() - pelota.getRadio() <= pgrande.getEjeY() - pgrande.getRadioInt()) {
+                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
+                contadorCiclos = 0;
+            }
+        }
+        contadorCiclos++;
+
     }
 }
