@@ -17,9 +17,10 @@ public class Pelota extends Drawable {
     int radio = 60; //circuferencia de la pelota
     float ejeX, ejeY, ejeZ; //posicion cada momento
     int borde;
+    int bordeBajo;
     int ancho, alto;
 
-    public Pelota(int ancho, int alto, int borde, Paint pincel) {
+    public Pelota(int ancho, int alto, int borde, Paint pincel, int bordeBajo) {
         ejeX = ancho / 2;
         ejeY = alto / 2;
         ejeZ = radio; //posicion cada momento
@@ -27,6 +28,7 @@ public class Pelota extends Drawable {
         this.ancho = ancho;
         this.alto = alto;
         this.pincel = pincel;
+        this.bordeBajo = bordeBajo;
     }
 
     @Override

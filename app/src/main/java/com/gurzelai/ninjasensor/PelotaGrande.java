@@ -19,11 +19,11 @@ public class PelotaGrande extends Drawable {
     float ejeX, ejeY;
     int borde;
     int ancho, alto;
-
+    int bordeBajo;
     int diferenciaX = 1, diferenciaY = 1;
     int diferenciaRadio = 1;
 
-    public PelotaGrande(int ancho, int alto, int borde, Paint pincel) {
+    public PelotaGrande(int ancho, int alto, int borde, Paint pincel, int bordeBajo) {
         ejeX = ancho / 2;
         ejeY = alto / 2;
         this.borde = borde;
@@ -32,6 +32,7 @@ public class PelotaGrande extends Drawable {
         this.pincel = pincel;
         radioExt = 220;
         radioInt = radioExt - 6;
+        this.bordeBajo = bordeBajo;
     }
 
     public int getRadioInt() {
@@ -44,11 +45,9 @@ public class PelotaGrande extends Drawable {
     }
 
 
-
     public float getEjeY() {
         return ejeY;
     }
-
 
 
     @Override
@@ -79,8 +78,8 @@ public class PelotaGrande extends Drawable {
         if (ejeY < (radioExt + borde)) {
             ejeY = (radioExt + borde);
             diferenciaY = -1 * diferenciaY;
-        } else if (ejeY > (alto - radioExt - borde)) { //poner -150 si ponemos el navigation bar
-            ejeY = (alto - radioExt - borde);  //poner -150 si ponemos el navigation bar
+        } else if (ejeY > (alto - radioExt - bordeBajo)) { //poner -150 si ponemos el navigation bar
+            ejeY = (alto - radioExt - bordeBajo);  //poner -150 si ponemos el navigation bar
             diferenciaY = -1 * diferenciaY;
         }
     }

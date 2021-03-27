@@ -29,6 +29,7 @@ public class MiPanel extends View implements SensorEventListener {
 
     int alto, ancho;
     int borde = 30; // esto se usara para definir el borde de la pantalla
+    int bordeBajo;
     int contadorCiclos = 0;
 
     public MiPanel(Context interfaz) {
@@ -43,8 +44,10 @@ public class MiPanel extends View implements SensorEventListener {
         root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.black));
         tone = new ToneGenerator(AudioManager.STREAM_ALARM, VOLUMEN);
 
-        pelota = new Pelota(ancho, alto, borde, pincel);
-        pgrande = new PelotaGrande(ancho, alto, borde, pincel);
+        bordeBajo = alto - (alto - 75 - 75 - 75);
+
+        pelota = new Pelota(ancho, alto, borde, pincel, bordeBajo);
+        pgrande = new PelotaGrande(ancho, alto, borde, pincel, bordeBajo);
     }
 
     @Override
