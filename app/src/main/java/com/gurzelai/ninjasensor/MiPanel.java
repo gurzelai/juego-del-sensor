@@ -112,6 +112,5 @@ public class MiPanel extends View implements SensorEventListener {
 
         }
         contadorCiclos++;
-
     }
 }
