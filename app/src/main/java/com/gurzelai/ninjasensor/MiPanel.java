@@ -30,6 +30,7 @@ public class MiPanel extends View implements SensorEventListener {
     int alto, ancho;
     int borde = 30; // esto se usara para definir el borde de la pantalla
     int bordeBajo;
+    int vida;
     int contadorCiclos = 0;
 
     public MiPanel(Context interfaz) {
@@ -45,6 +46,7 @@ public class MiPanel extends View implements SensorEventListener {
         tone = new ToneGenerator(AudioManager.STREAM_ALARM, VOLUMEN);
 
         bordeBajo = alto - (alto - 75 - 75 - 75);
+        vida = ancho - 40;
 
         pelota = new Pelota(ancho, alto, borde, pincel, bordeBajo);
         pgrande = new PelotaGrande(ancho, alto, borde, pincel, bordeBajo);
@@ -70,29 +72,44 @@ public class MiPanel extends View implements SensorEventListener {
     }
 
     private void dibujarProgressBar(Canvas lienzo) {
-        pincel.setColor(Color.BLUE);
-        lienzo.drawRect(40, alto - 75,ancho -40, alto - 75 - 75, pincel);
+        pincel.setColor(Color.GREEN);
+        lienzo.drawRect(40, alto - 75, vida, alto - 75 - 75, pincel);
     }
 
     private void choqueEntrePelotas() {
 
-        if (contadorCiclos > 10) {
-            if (pelota.getEjeX() + pelota.getRadio() >= pgrande.getEjeX() + pgrande.getRadioInt()) {
+
+        if (pelota.getEjeX() + pelota.getRadio() >= pgrande.getEjeX() + pgrande.getRadioInt()) {
+            if (contadorCiclos > 10) {
                 tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                 contadorCiclos = 0;
             }
-            if (pelota.getEjeX() - pelota.getRadio() <= pgrande.getEjeX() - pgrande.getRadioInt()) {
+            vida--;
+
+        }
+        if (pelota.getEjeX() - pelota.getRadio() <= pgrande.getEjeX() - pgrande.getRadioInt()) {
+            if (contadorCiclos > 10) {
                 tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                 contadorCiclos = 0;
             }
-            if (pelota.getEjeY() + pelota.getRadio() >= pgrande.getEjeY() + pgrande.getRadioInt()) {
+            vida--;
+
+        }
+        if (pelota.getEjeY() + pelota.getRadio() >= pgrande.getEjeY() + pgrande.getRadioInt()) {
+            if (contadorCiclos > 10) {
                 tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                 contadorCiclos = 0;
             }
-            if (pelota.getEjeY() - pelota.getRadio() <= pgrande.getEjeY() - pgrande.getRadioInt()) {
+            vida--;
+
+        }
+        if (pelota.getEjeY() - pelota.getRadio() <= pgrande.getEjeY() - pgrande.getRadioInt()) {
+            if (contadorCiclos > 10) {
                 tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
                 contadorCiclos = 0;
             }
+            vida--;
+
         }
         contadorCiclos++;
 
