@@ -22,7 +22,6 @@ public class MiPanel extends View implements SensorEventListener {
     final int VOLUMEN = 0;
 
     Paint pincel = new Paint();
-    ToneGenerator tone;
 
     Pelota pelota;
     PelotaGrande pgrande;
@@ -31,7 +30,6 @@ public class MiPanel extends View implements SensorEventListener {
     int borde = 30; // esto se usara para definir el borde de la pantalla
     int bordeBajo;
     int vida;
-    int contadorCiclos = 0;
 
     public MiPanel(Context interfaz) {
         super(interfaz);
@@ -43,7 +41,6 @@ public class MiPanel extends View implements SensorEventListener {
         alto = pantalla.getHeight();
         View root = this.getRootView();
         root.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.black));
-        tone = new ToneGenerator(AudioManager.STREAM_ALARM, VOLUMEN);
 
         bordeBajo = alto - (alto - 75 - 75 - 75);
         vida = ancho - 40;
@@ -78,39 +75,24 @@ public class MiPanel extends View implements SensorEventListener {
 
     private void choqueEntrePelotas() {
 
-
         if (pelota.getEjeX() + pelota.getRadio() >= pgrande.getEjeX() + pgrande.getRadioInt()) {
-            if (contadorCiclos > 10) {
-                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                contadorCiclos = 0;
-            }
             vida--;
 
         }
         if (pelota.getEjeX() - pelota.getRadio() <= pgrande.getEjeX() - pgrande.getRadioInt()) {
-            if (contadorCiclos > 10) {
-                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                contadorCiclos = 0;
-            }
+
             vida--;
 
         }
         if (pelota.getEjeY() + pelota.getRadio() >= pgrande.getEjeY() + pgrande.getRadioInt()) {
-            if (contadorCiclos > 10) {
-                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                contadorCiclos = 0;
-            }
+
             vida--;
 
         }
         if (pelota.getEjeY() - pelota.getRadio() <= pgrande.getEjeY() - pgrande.getRadioInt()) {
-            if (contadorCiclos > 10) {
-                tone.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 200);
-                contadorCiclos = 0;
-            }
+
             vida--;
 
         }
-        contadorCiclos++;
     }
 }
